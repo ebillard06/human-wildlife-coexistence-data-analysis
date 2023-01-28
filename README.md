@@ -5,7 +5,6 @@ A data analysis project looking at human and wildlife coexistence in Canadian Na
 1.	What patterns can be found looking at location and time of year for each of the following variables: human activities, animals involved, cause, and type. 
 2.	What incidents are the most concerning (i.e. where there is potential risk for humans or animals)?
 3.	For incidents that are found to be the most concerning, what variables are most correlated with their occurrence? Can we accurately or reliably predict future similar incidents will occur near that location or that time of year? 
-![image](https://user-images.githubusercontent.com/119974612/215293993-ad8eec39-c7c5-44f2-b758-f63707bc727c.png)
 ## The Data: 
 Parks Canada Agency collected human-wildlife coexistence incident reports in 35 National Parks from 2010-2021 and compiled them into four data-sets accessible at [Open Canada's Human-wildlife coexistence incidents in selected national parks form 2010 to 2021](https://open.canada.ca/data/en/dataset/cc5ea139-c628-46dc-ac55-a5b3351b7fdf)
 ### This project uses the the following files available at that link: 
