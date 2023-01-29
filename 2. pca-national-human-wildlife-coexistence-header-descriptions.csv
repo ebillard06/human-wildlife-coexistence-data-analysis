@@ -1,0 +1,24 @@
+Column Header EN,Column Header FR,Value Description EN,Value Description FR
+Incident Date,Date de l’incident,Incident Date,Date de l’incident
+Year,Année,Year,Année 
+Month,Mois,Month,Mois
+Incident Number,Numéro de l'incident,Incident Number,Numéro de l’incident
+Incident Type,Type d'incident,"The general type of incident that occurred. Each incident is assigned a single incident type that best represents the incident, although other incident types may also be applicable.","Type général d’incident survenu. Chaque incident se voit attribuer un type d’incident qui représente le mieux l’incident, bien que d’autres types d’incidents puissent aussi s’appliquer."
+Field Unit,Unité de gestion,The name of the administrative unit of Parks Canada Agency that is responsible for management of the incident based on its location,Nom de l’unité administrative de l’Agence Parcs Canada qui est responsable de la gestion de l’incident en fonction du lieu où il s’est produit
+Protected Heritage Area,Aire patrimoniale protégée,"The name of the National Park, National Park Reserve, National Urban Park, National Historic Site, or National Marine Conservation Area where the incident occurred ","Nom du parc national, de la réserve de parc national, du parc urbain national, du lieu historique national ou de l’aire marine nationale de conservation où l’incident s’est produit"
+Species Common Name,Nom commun de l’espèce,Species Common Name,Nom commun de l’espèce
+Number of Animals,Nombre d’animaux,Number of Animals,Nombre d’animaux
+Animal Behaviour,Comportement de l'animal,"The animal behaviour of greatest concern for human safety, as exhibited by each animal towards people during the incident (if applicable)","Comportement de l’animal très préoccupant pour la sécurité humaine, tel que manifesté par chaque animal durant l’incident (s’il y a lieu) "
+Reason for Animal Behaviour,Raison du comportement,"The primary contributing factor for the behaviour exhibited by each animal during the incident, if applicable ","Principal facteur contribuant au comportement manifesté par chaque animal durant l’incident, s’il y a lieu "
+Animal Attractant,Substance ou objet attractif,"The primary type of resources that each animal was attracted to during the incident, if applicable  ","Principal type de ressource qui a attiré l’animal durant l’incident, s’il y a lieu   "
+Animal Health Status,État de santé de l’animal,"Animal Health Status, if known","État de santé de l’animal, s'il est connu"
+Cause of Animal Health Status,Cause de l’état de santé de l’animal,"The primary cause of animal health status for each animal involved in the incident, if applicable ","Principale cause de l’état de santé de chaque animal impliqué dans l’incident, s’il y a lieu"
+Deterrents Used,Moyen de dissuasion,"The highest level of deterrent(s) deployed to modify each animal’s behaviour, if applicable","Plus haut niveau de moyens de dissuasion déployés pour modifier le comportement de chaque animal, s’il y a lieu"
+Number of Deterrent rounds,Nombre de projectiles,Number of deterrent rounds deployed,Nombre de projectiles
+Animal Response to Deterrents,Réaction au dispositif de dissuasion,"The primary response of each animal to the deterrents deployed during the incident, if applicable","Principale réaction de chaque animal aux moyens de dissuasion déployés durant l’incident, s’il y a lieu"
+Activity Type,Type d'activité,The primary activity type(s) people were engaged in during the incident. There is a maximum of two activity types recorded per incident.,Principal type d’activité que les personnes ont engagé durant l’incident. Un maximum de deux types d’activités peut être consigné par incident.
+Response Type,Type d'intervention,Specific actions taken by Parks Canada Agency staff in response to the incident. Single incidents may require multiple response types.,Mesures spécifiques prises par le personnel de l’Agence Parcs Canada en réaction à l’incident. Des incidents uniques peuvent nécessiter de multiples types d’intervention.
+Number of Staff Involved,Nombre d’employés impliqués,Number of Staff Involved,Nombre d’employés impliqués
+Total Incidents,Nombre d'incidents,Total Incidents,Nombre d'incidents
+Total Animals,Nombre d'animaux,Nombre d'animaux,Nombre d'animaux
+Total Staff Hours,Heures de travail,Total Staff Hours,Heures de travail
