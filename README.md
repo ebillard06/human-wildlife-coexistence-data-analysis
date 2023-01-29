@@ -15,8 +15,9 @@ Parks Canada Agency collected human-wildlife coexistence incident reports in 35 
 5. pca-human-wildlife-coexistence-incidents-detailed-records-2010-2021 (Just the English version)
 6. pca-human-wildlife-coexistence-responses-detailed-records-2010-2021 (Just the English version)
 
-**Items 3-6 are individual datasets containing different information related to each incident: human activity, animal(s) involved, incident details, and responses. For this project we will join the four datasets together using the unique Incident Number, and analyze the complete set of data. 
-## How to Install and Run the Project**
+**Items 3-6 are individual datasets containing different information related to each incident: human activity, animal(s) involved, incident details, and responses. For this project we will join the four datasets together using the unique Incident Number, and analyze the complete set of data.**
+
+## How to Install and Run the Project
 
 
 
