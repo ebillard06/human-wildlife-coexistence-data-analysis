@@ -8,12 +8,12 @@ A data analysis project looking at human and wildlife coexistence in Canadian Na
 ## The Data: 
 Parks Canada Agency collected human-wildlife coexistence incident reports in 35 National Parks from 2010-2021 and compiled them into four data-sets accessible at [Open Canada's Human-wildlife coexistence incidents in selected national parks form 2010 to 2021](https://open.canada.ca/data/en/dataset/cc5ea139-c628-46dc-ac55-a5b3351b7fdf)
 ### This project uses the the following files available at that link: 
-1. pca_national_human_wildlife_conflict_data_dictionary
-2. pca-national-human-wildlife-coexistence-header-descriptions
-3. pca-human-wildlife-coexistence-activities-detailed-records-2010-2021
-4. pca-human-wildlife-coexistence-animals-involved-detailed-records-2010-2021
-5. pca-human-wildlife-coexistence-incidents-detailed-records-2010-2021
-6. pca-human-wildlife-coexistence-responses-detailed-records-2010-2021
+1. pca_national_human_wildlife_conflict_data_dictionary (This one document contains both English and French). *This file is used for reference and information purposes but is not joined into the dataset we used.*
+2. pca-national-human-wildlife-coexistence-header-descriptions (One document contains both English and French). *This file is used for reference and information purposes but is not joined into the dataset we used.*
+3. pca-human-wildlife-coexistence-activities-detailed-records-2010-2021 (Just the English version)
+4. pca-human-wildlife-coexistence-animals-involved-detailed-records-2010-2021 (Just the English version)
+5. pca-human-wildlife-coexistence-incidents-detailed-records-2010-2021 (Just the English version)
+6. pca-human-wildlife-coexistence-responses-detailed-records-2010-2021 (Just the English version)
 Items 3-6 are individual datasets containing different information related to each incident: human activity, animal(s) involved, incident details, and responses. For this project we will join the four datasets together using the unique Incident Number, and analyze the complete set of data. 
 ## How to Install and Run the Project
 
