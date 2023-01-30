@@ -25,6 +25,25 @@ dup_Activities
 
 dup_Activities["Activity Type"].isna().sum()
 #Conclusion, only a small amount (46) of the duplicated rows (total of 4051) contain NA values for "Activity Type". Therefore that means that several individual Incident Number's contain more than one "Activity Type"
+#Count number of unique Incident Numbers in duplicates.
+dup_Activities["Incident Number"].nunique()
+
+#I would like to merge the "Activity Type" for all rows that have the same "Incident Number", "Incident Date", "Field Unit", and "Protected Heritage Area" into a list contained in a single row for that Incident number.
+Activities2 = Activities['Activity Type'].groupby([Activities['Incident Number'], Activities["Incident Date"], Activities["Field Unit"], Activities["Protected Heritage Area"]]).apply(list).reset_index()
+Activities2
+
+#Confirming whether the new dataset has any duplicate incident numbers
+duplicate_Act2_Inc_Num = Activities2.duplicated(subset="Incident Number", keep=False)
+sum(duplicate_Act2_Inc_Num)
+
+#Cross checking to ensure correct number of rows remain.
+#Number of rows in Original Dataset, minus (number of rows in duplicates subset minus number of UNIQUE rows in duplicates subset) == Number of final rows in new subset. 
+Activities.shape[0] - (dup_Activities.shape[0] - dup_Activities["Incident Number"].nunique()) == Activities2.shape[0]
+
+#(In other words, I want to ensure that our new dataset has the same number of Unique incident numbers as our original dataset)
+Activities["Incident Number"].nunique() == Activities2["Incident Number"].nunique()
+
+#Conclusion, correct number of rows are remaining in our new dataset. 
 
 
 ######
@@ -126,3 +145,31 @@ sum(duplicate_Resp_Inc_Num)==sum(duplicate_Resp_subset)
 
 #Finding unique Response Types. *** Emailed David Gummer about whether there is a reference table for which incident types or animal health status's require which response type.
 Responses["Response Type"].unique()
+
+#Checking how many of the duplicates have NA values in "Response Type"
+dup_Responses = Responses[duplicate_Resp_subset]
+dup_Responses
+
+#Checking how many of the duplicates have NA values in "Activity Type"
+dup_Responses["Response Type"].isna().sum()
+
+#Count number of unique Incident Numbers in duplicates.
+dup_Responses["Incident Number"].nunique()
+
+#I would like to merge the "Activity Type" for all rows that have the same "Incident Number", "Incident Date", "Field Unit", and "Protected Heritage Area" into a list contained in a single row for that Incident number.
+Responses2 = Responses['Response Type'].groupby([Responses['Incident Number'], Responses["Incident Date"], Responses["Field Unit"], Responses["Protected Heritage Area"]]).apply(list).reset_index()
+Responses2
+
+#Confirming whether the new dataset has any duplicate incident numbers
+duplicate_Resp2_Inc_Num = Responses2.duplicated(subset="Incident Number", keep=False)
+sum(duplicate_Resp2_Inc_Num)
+
+#Cross checking to ensure correct number of rows remain.
+#Number of rows in Original Dataset, minus (number of rows in duplicates subset minus number of UNIQUE rows in duplicates subset) == Number of final rows in new subset. 
+Responses.shape[0] - (dup_Responses.shape[0] - dup_Responses["Incident Number"].nunique()) == Responses2.shape[0]
+
+#(In other words, I want to ensure that our new dataset has the same number of Unique incident numbers as our original dataset)
+Responses["Incident Number"].nunique() == Responses2["Incident Number"].nunique()
+
+#Conclusion, correct number of rows are remaining in our new dataset. 
+
