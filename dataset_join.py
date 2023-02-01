@@ -87,7 +87,6 @@ sum(duplicate_Animals2_Inc_Num)
 Animals3 = Animals
 
 Animals3.insert(0, "Duplicate Inc_Num", Animals3.duplicated(subset="Incident Number", keep=False))
-                
 
 ValueCounts = Animals3["Incident Number"].value_counts()
 
@@ -111,8 +110,13 @@ Animals3.insert(0, "Unique Counts", UniqueCounts)
 
 Animals3["Unique Counts"]= Animals3["Unique Counts"].astype(str)
 
-
 Animals3.insert(0, "UniqueID", Animals3[["Incident Number", "Unique Counts"]].apply(".".join, axis=1))
+
+#Checking to ensure there are no duplicates in the the UniqueID 
+
+duplicates_UniqueID = Animals3.duplicated(subset="UniqueID", keep=False)
+sum(duplicates_UniqueID)
+
 
 
 #########
@@ -216,5 +220,8 @@ Responses.shape[0] - (dup_Responses.shape[0] - dup_Responses["Incident Number"].
 #(In other words, I want to ensure that our new dataset has the same number of Unique incident numbers as our original dataset)
 Responses["Incident Number"].nunique() == Responses2["Incident Number"].nunique()
 
-#Conclusion, correct number of rows are remaining in our new dataset. 
+#Conclusion, correct number of rows are remaining in our new dataset.
+
+
+
 
