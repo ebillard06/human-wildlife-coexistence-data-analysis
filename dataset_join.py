@@ -43,12 +43,13 @@ Activities.shape[0] - (dup_Activities.shape[0] - dup_Activities["Incident Number
 #(In other words, I want to ensure that our new dataset has the same number of Unique incident numbers as our original dataset)
 Activities["Incident Number"].nunique() == Activities2["Incident Number"].nunique()
 
-#Conclusion, correct number of rows are remaining in our new dataset. 
+#Conclusion, correct number of rows are remaining in our new dataset.
+
 
 
 ######
 
-
+import pandas as pd
 Animals = pd.read_csv("/Users/nerdbear/Documents/GitHub/human-wildlife-coexistence-data-analysis/4. pca-human-wildlife-coexistence-animals-involved-detailed-records-2010-2021.csv", encoding='cp1252')
 Animals.head()
 Animals.shape
@@ -64,10 +65,54 @@ sum(duplicate_Animals_Inc_Num)
 
 sum(duplicate_Animals_Inc_Num)==sum(duplicate_Animals_subset)
 
-#each individual animal "Species Common Name" involved in a given "Incident Number" is listed in a separate row for that incident number and is what is causing the duplication.
-#There is also lots of data (up to 8 other variables) that are specific to the "Species Common Name" value. Becuase of this, I don't want to modify the data in this dataset at all. 
-#Instead, I will treat this dataset as the "main dataset". I'm going to create a new column which will merge the "Incident Number" with the "Species Common Name" value to create a Unique identifier for each row.
-#When i join the other 3 datasets, I will then join them based on Incident Number. This means the data coming in from the other 3 datsets will be identical for each incident number and will not vary based on "Species Common Name" (becase that information is not provided to us in the other datsets. I believe this approach will gain us the most insight and maintain the most data of what we were given.
+#There are several duplicates of incident numbers here. There are also several attributes that dependent on the value in "Species Common Name" and I do not want to lose any of that data. 
+#I will add a new column to this dataset that combines the Incident Number with the "Species Common Name" to create a UNIQUE identifier. 
+#I will join the other 3 datasets to this dataset using the Incident Number (and any other common attributes (like Incident Date, Field Unit, Projected Heritage Area, and maybe Incident Type). 
+#So the each occurence of the incident number in the Animal dataset will have the same information imported from the other 3 datasets, but I believe this is the best method for preserving all the data we want (and there is no association between the various Response Types, Incident Types or other information that would allow us to do anything else when joining * I emailed David Gummer to ask and am waiting on a response). 
+
+
+Animals2 = Animals
+
+Animals2.insert(0, "UniqueID", Animals2[["Incident Number", "Species Common Name"]].apply("-".join, axis=1))
+#Forest.insert(13, "fireOccurred", Forest['area']>0, True)
+#df["Period"] = df[["Courses", "Duration"]].apply("-".join, axis=1)
+
+#Check for duplicates to ensure the newly generated column is unique. 
+duplicate_Animals2_Inc_Num = Animals2.duplicated(subset="UniqueID", keep=False)
+sum(duplicate_Animals2_Inc_Num)
+#This option won't work, there are duplicate reports of the same incident number with the same Species Common Name. 
+#There is no other column here that is unique to separate instances of the same incident number so 
+#Will instead do decimal points added for the count of duplicates. So if the incident number occurs 3 times, the first will get a .1, the second a .2, and the third a .3
+
+Animals3 = Animals
+
+Animals3.insert(0, "Duplicate Inc_Num", Animals3.duplicated(subset="Incident Number", keep=False))
+                
+
+ValueCounts = Animals3["Incident Number"].value_counts()
+
+ValueCounts["BAN2013-1151"]
+
+Counts = []
+for i in Animals3["Incident Number"]:
+                Counts.append(ValueCounts[i])
+
+Animals3.insert(0, "Duplicate Counts", Counts)
+                    
+UniqueCounts = []
+for i in Animals3["Incident Number"]:
+                if ValueCounts[i] >= 1:
+                    UniqueCounts.append(ValueCounts[i])
+                    ValueCounts[i] -= 1
+
+Animals3.insert(0, "Unique Counts", UniqueCounts)
+
+#Need to convert "Unique Counts" to string type (from integer type) before i'm able to join it with the string "Incident Number" values.
+
+Animals3["Unique Counts"]= Animals3["Unique Counts"].astype(str)
+
+
+Animals3.insert(0, "UniqueID", Animals3[["Incident Number", "Unique Counts"]].apply(".".join, axis=1))
 
 
 #########
