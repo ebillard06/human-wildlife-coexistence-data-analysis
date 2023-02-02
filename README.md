@@ -19,5 +19,5 @@ Parks Canada Agency collected human-wildlife coexistence incident reports in 35 
 
 ## How to Install and Run the Project
 
-
+Updates needed to describe process of preparing 4 datasets for joining and and then joining them into "CompleteData"
 
