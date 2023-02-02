@@ -223,5 +223,62 @@ Responses["Incident Number"].nunique() == Responses2["Incident Number"].nunique(
 #Conclusion, correct number of rows are remaining in our new dataset.
 
 
+##############
+#Joining datasets without losing any rows from any dataset.
 
+#Checking all 4 datasets and comparing Incident Numbers. Because we'll be using Animals dataset as our main one to join the others into,
+#I Want to see if there are any incident numbers included in the other 3 datasets that are not already in the Animals dataset.
+#Conclusion based on results below, there are three (3) incident numbers included in other datasets that do not exist in Animals.
+
+AnimalIDs = Animals3["Incident Number"].unique()
+AnimalIDs
+AnimalIDs = np.sort(AnimalIDs)
+AnimalIDs
+AnimalIDs.size
+ActivityIDs = Activities2["Incident Number"]
+ActivityIDs
+ActivityIDs = np.sort(ActivityIDs)
+ActivityIDs
+ActivityIDs.size
+dif1 = list(set(ActivityIDs)-set(AnimalIDs))
+dif1
+IncidentIDs = Incidents2["Incident Number"]
+IncidentIDs.size
+IncidentIDs = np.sort(IncidentIDs)
+IncidentIDs
+dif2 = list(set(IncidentIDs)-set(AnimalIDs))
+dif2
+ResponseIDs = Responses2["Incident Number"]
+ResponseIDs.size
+ResponseIDs = np.sort(ResponseIDs)
+ResponseIDs
+dif3 = list(set(ResponseIDs)-set(AnimalIDs))
+dif3
+
+#Now joining datasets together.
+#Doing Outer Joins to ensure no loss of data at this stage for Incident Numbers that exist in other datasets but not in the Animals datset we are joining to.
+
+JoinedData1 = pd.merge(Animals3, Activities2, how="outer", on = ["Incident Number", "Incident Date", "Field Unit", "Protected Heritage Area"])
+JoinedData1
+#Confirming that Incident Numbers contained in Activities but not in Animals dataset were still joined into the new dataset. 
+JoinedData1.loc[JoinedData1["Incident Number"].isin(dif1)]
+
+JoinedData2 = pd.merge(JoinedData1, Incidents2, how="outer", on = ["Incident Number", "Incident Date", "Field Unit", "Protected Heritage Area"])
+JoinedData2
+#Confirming that Incident Numbers contained in Incidents but not in Animals dataset were still joined into the new dataset. 
+JoinedData2.loc[JoinedData2["Incident Number"].isin(dif2)]
+
+JoinedData3 = pd.merge(JoinedData2, Responses2, how="outer", on = ["Incident Number", "Incident Date", "Field Unit", "Protected Heritage Area"])
+JoinedData3
+#Confirming that Incident Numbers contained in Responses but not in Animals dataset were still joined into the new dataset. 
+JoinedData3.loc[JoinedData3["Incident Number"].isin(dif3)]
+
+#Renaming our final complete Dataset.
+CompleteData = JoinedData3
+
+#download CompleteData as .csv file from Google Colab
+
+from google.colab import files
+CompleteData.to_csv('CompleteData.csv', encoding = 'utf-8-sig') 
+files.download('CompleteData.csv')
 
