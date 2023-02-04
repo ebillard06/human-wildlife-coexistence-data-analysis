@@ -18,6 +18,16 @@ from pandas_profiling import ProfileReport
 CompleteData = pd.read_csv("/Users/nerdbear/Documents/GitHub/human-wildlife-coexistence-data-analysis/CompleteData.csv", index_col=0, dtype=str)
 profile = ProfileReport(CompleteData, title="Human-Animal Coexistence Data - EDA Report")
 
+CompleteData["Sum of Number of Animals"] = CompleteData["Sum of Number of Animals"].astype("float")
+
+CompleteData["Total Staff Hours"] = CompleteData["Total Staff Hours"].astype("float")
+
+CompleteData["Total Staff Included"] = CompleteData["Total Staff Included"].astype("int")
+
+CompleteData["Latitude Public"] = CompleteData["Latitude Public"].astype("float")
+
+CompleteData["Longitude Public"] = CompleteData["Longitude Public"].astype("float")
+
 #To view report inside Jupyter Notebook:
 profile
 
