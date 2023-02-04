@@ -7,7 +7,7 @@ A data analysis project looking at human and wildlife coexistence in Canadian Na
 3.	For incidents that are found to be the most concerning, what variables are most correlated with their occurrence? Can we accurately or reliably predict future similar incidents will occur near that location or that time of year? 
 ## The Data: 
 Parks Canada Agency collected human-wildlife coexistence incident reports in 35 National Parks from 2010-2021 and compiled them into four data-sets accessible at [Open Canada's Human-wildlife coexistence incidents in selected national parks form 2010 to 2021](https://open.canada.ca/data/en/dataset/cc5ea139-c628-46dc-ac55-a5b3351b7fdf)
-### This project uses the the following files available at that link: 
+### This project uses the the following files available at that link. These files have also been download and are saved to this repo. 
 1. pca_national_human_wildlife_conflict_data_dictionary (This one document contains both English and French). *This file is used for reference and information purposes but is not joined into the dataset we used.*
 2. pca-national-human-wildlife-coexistence-header-descriptions (One document contains both English and French). *This file is used for reference and information purposes but is not joined into the dataset we used.*
 3. pca-human-wildlife-coexistence-activities-detailed-records-2010-2021 (Just the English version)
