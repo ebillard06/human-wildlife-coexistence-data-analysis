@@ -7,7 +7,7 @@ A data analysis project looking at human and wildlife coexistence in Canadian Na
 3.	For incidents that are found to be the most concerning, what variables are most correlated with their occurrence? Can we accurately or reliably predict future similar incidents will occur near that location or that time of year? 
 ## The Data: 
 Parks Canada Agency collected human-wildlife coexistence incident reports in 35 National Parks from 2010-2021 and compiled them into four data-sets accessible at [Open Canada's Human-wildlife coexistence incidents in selected national parks form 2010 to 2021](https://open.canada.ca/data/en/dataset/cc5ea139-c628-46dc-ac55-a5b3351b7fdf)
-### This project uses the the following files available at that link: 
+### This project uses the the following files available at that link. These files have also been download and are saved to this repo. 
 1. pca_national_human_wildlife_conflict_data_dictionary (This one document contains both English and French). *This file is used for reference and information purposes but is not joined into the dataset we used.*
 2. pca-national-human-wildlife-coexistence-header-descriptions (One document contains both English and French). *This file is used for reference and information purposes but is not joined into the dataset we used.*
 3. pca-human-wildlife-coexistence-activities-detailed-records-2010-2021 (Just the English version)
@@ -19,5 +19,9 @@ Parks Canada Agency collected human-wildlife coexistence incident reports in 35 
 
 ## How to Install and Run the Project
 
-Updates needed to describe process of preparing 4 datasets for joining and and then joining them into "CompleteData"
+The file named "dataset_join" contains all the code used to join the four datasets. The data description on the Government of Canada Open Data website had indicated that each observation consisted of a unique incident number; however, there are actually several observations in each dataset which have duplicate incident numbers because more than observation was made per each incident. Because of this, there were some preprocessing steps that I needed to take before merging the datasets together. The code in "dataset_join" includes many comments about how the datasets were modified to combine or account for duplicate occurences of the incident numbers along with my reasons why. At the end of that code, a .csv file is generated called "CompleteData_Human-Animal_Coexistence.csv" (that .csv can also be found in the files here). The "dataset_join" file was run using Jupyter Notebook and only the links to the datasets would need to be modified in order to be able to run this code on another machine. 
+
+The "eda_generation" file contains the code used to import the "CompleteData_Human-Animal_Coexistence.csv" file, any data type modification settings needed, and the command for generating an 'Exploratory Data Analysis' (EDA) Report using the Pandas Profiling package. The generated EDA report in html format can be found in the files and is called "Human-Animal_Coexistence_Data_EDA_Report". 
+
+
 
