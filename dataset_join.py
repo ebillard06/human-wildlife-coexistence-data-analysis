@@ -1,5 +1,6 @@
 import pandas as pd
 from numpy import NaN
+from sklearn.preprocessing import OneHotEncoder
 
 Activities = pd.read_csv("/Users/nerdbear/Documents/GitHub/human-wildlife-coexistence-data-analysis/3. pca-human-wildlife-coexistence-activities-detailed-records-2010-2021.csv", encoding='cp1252')
 #Note, encoding='cp1252' needed to be specified in order to read .csv withour parser errors
@@ -17,20 +18,33 @@ sum(duplicate_Act_Inc_Num)
 sum(duplicate_Act_Inc_Num)==sum(duplicate_Act_subset)
 #Conclusion, The Activity Type column is the column that differs between rows - all other columns are identical when the incident number duplicates
 
-##** I would like to merge all Activity Types across duplicates on an Incident Number into one column "List of Activities" so that there are unique Incident Numbers for this dataset.
-
 #Checking how many of the duplicates have NA values in "Activity Type"
 dup_Activities = Activities[duplicate_Act_subset]
-dup_Activities
-
 dup_Activities["Activity Type"].isna().sum()
 #Conclusion, only a small amount (46) of the duplicated rows (total of 4051) contain NA values for "Activity Type". Therefore that means that several individual Incident Number's contain more than one "Activity Type"
 #Count number of unique Incident Numbers in duplicates.
 dup_Activities["Incident Number"].nunique()
 
-#I would like to merge the "Activity Type" for all rows that have the same "Incident Number", "Incident Date", "Field Unit", and "Protected Heritage Area" into a list contained in a single row for that Incident number.
-Activities2 = Activities['Activity Type'].groupby([Activities['Incident Number'], Activities["Incident Date"], Activities["Field Unit"], Activities["Protected Heritage Area"]]).apply(list).reset_index()
+#I would like to encode Acitivity Type so each distinct activity type is it's own column with a binary indicator (0 for no and 1 for yes) if a given activity type was involved in a given incident number.
+
+#Count distinct values in Activity Type
+Activities["Activity Type"].nunique()
+
+encoder = OneHotEncoder(handle_unknown='ignore')
+encoder_df = pd.DataFrame(encoder.fit_transform(Activities[["Activity Type"]]).toarray())
+encoder_df.columns = encoder.get_feature_names_out(["Activity Type"])
+encoder_df.head()
+Activities_encoded = Activities.join(encoder_df)
+Activities_encoded.head()
+Activities_encoded.drop('Activity Type', axis = 1, inplace=True)
+Activities_encoded.head()
+
+
+##** I would like to merge all columns relating to Activity Types (columns 4-105) across duplicates on an Incident Numbe so that there are unique Incident Numbers for this dataset.
+Activities2 = Activities_encoded[Activities_encoded.columns[4:105]].groupby([Activities['Incident Number'], Activities["Incident Date"], Activities["Field Unit"], Activities["Protected Heritage Area"]]).apply(sum).reset_index()
 Activities2
+# The way I've merged the encoded activity type columns using the (sum) function means that instead of being a binary indicator, it is now a count of the number of times each activity was recorded per incident. 
+#I think that is fine (#check with Prof. Abdou)
 
 #Confirming whether the new dataset has any duplicate incident numbers
 duplicate_Act2_Inc_Num = Activities2.duplicated(subset="Incident Number", keep=False)
@@ -65,7 +79,7 @@ sum(duplicate_Animals_Inc_Num)
 
 sum(duplicate_Animals_Inc_Num)==sum(duplicate_Animals_subset)
 
-#There are several duplicates of incident numbers here. There are also several attributes that dependent on the value in "Species Common Name" and I do not want to lose any of that data. 
+#There are several duplicates of incident numbers here. My first assumption is that the duplicate incident numbers are being caused by each unique "species common name" being recorded individually for each incident number.
 #I will add a new column to this dataset that combines the Incident Number with the "Species Common Name" to create a UNIQUE identifier. 
 #I will join the other 3 datasets to this dataset using the Incident Number (and any other common attributes (like Incident Date, Field Unit, Projected Heritage Area, and maybe Incident Type). 
 #So the each occurence of the incident number in the Animal dataset will have the same information imported from the other 3 datasets, but I believe this is the best method for preserving all the data we want (and there is no association between the various Response Types, Incident Types or other information that would allow us to do anything else when joining * I emailed David Gummer to ask and am waiting on a response). 
@@ -113,7 +127,6 @@ Animals3["Unique Counts"]= Animals3["Unique Counts"].astype(str)
 Animals3.insert(0, "UniqueID", Animals3[["Incident Number", "Unique Counts"]].apply(".".join, axis=1))
 
 #Checking to ensure there are no duplicates in the the UniqueID 
-
 duplicates_UniqueID = Animals3.duplicated(subset="UniqueID", keep=False)
 sum(duplicates_UniqueID)
 
@@ -205,9 +218,29 @@ dup_Responses["Response Type"].isna().sum()
 #Count number of unique Incident Numbers in duplicates.
 dup_Responses["Incident Number"].nunique()
 
-#I would like to merge the "Activity Type" for all rows that have the same "Incident Number", "Incident Date", "Field Unit", and "Protected Heritage Area" into a list contained in a single row for that Incident number.
-Responses2 = Responses['Response Type'].groupby([Responses['Incident Number'], Responses["Incident Date"], Responses["Field Unit"], Responses["Protected Heritage Area"]]).apply(list).reset_index()
+
+
+#I would like to encode Response Type so each distinct Response type is it's own column with a binary indicator (0 for no and 1 for yes) if a given Response type was involved in a given incident number.
+
+#Count distinct values in Response Type
+Responses["Response Type"].nunique()
+
+encoder = OneHotEncoder(handle_unknown='ignore')
+encoder_df = pd.DataFrame(encoder.fit_transform(Responses[["Response Type"]]).toarray())
+encoder_df.columns = encoder.get_feature_names_out(["Response Type"])
+encoder_df.head()
+Responses_encoded = Responses.join(encoder_df)
+Responses_encoded.head()
+Responses_encoded.drop('Response Type', axis = 1, inplace=True)
+Responses_encoded.head()
+
+#Viewing sums of each response type column. 
+print(Responses_encoded[Responses_encoded.columns[4:53]].sum()) 
+
+##** I would like to merge all columns relating to Reponse Types (columns 4-53) across duplicates on an Incident Numbe so that there are unique Incident Numbers for this dataset.
+Responses2 = Responses_encoded[Responses_encoded.columns[4:53]].groupby([Responses['Incident Number'], Responses["Incident Date"], Responses["Field Unit"], Responses["Protected Heritage Area"]]).apply(sum).reset_index()
 Responses2
+
 
 #Confirming whether the new dataset has any duplicate incident numbers
 duplicate_Resp2_Inc_Num = Responses2.duplicated(subset="Incident Number", keep=False)
@@ -254,6 +287,8 @@ ResponseIDs = np.sort(ResponseIDs)
 ResponseIDs
 dif3 = list(set(ResponseIDs)-set(AnimalIDs))
 dif3
+print(dif1, dif2, dif3)
+
 
 #Now joining datasets together.
 #Doing Outer Joins to ensure no loss of data at this stage for Incident Numbers that exist in other datasets but not in the Animals datset we are joining to.
@@ -265,20 +300,61 @@ JoinedData1.loc[JoinedData1["Incident Number"].isin(dif1)]
 
 JoinedData2 = pd.merge(JoinedData1, Incidents2, how="outer", on = ["Incident Number", "Incident Date", "Field Unit", "Protected Heritage Area"])
 JoinedData2
+
+#Both Animals3 and Incidents2 contained a column for "Incident Type" so joining the two created columns "_x" and "_y"
+#Looking for differences between the two columns. 
+JoinedData2["Incident Type_x"] == JoinedData2["Incident Type_y"]
+difference = list(set(JoinedData2["Incident Type_x"]) - set(JoinedData2["Incident Type_y"]))
+difference
+JoinedData2["Incident Type_x"].isna().sum()
+JoinedData2["Incident Type_y"].isna().sum()
+
+#Conclusion, Incident Type_x column contains 3 na values, whereas Incident Type_y contains none. 
+#Will drop "Incident Type_x". 
+
+JoinedData2.drop('Incident Type_x', axis = 1, inplace=True)
+JoinedData2.head()
+
+#Moving columns around so key information is closer to start of dataframe and all the activity types are at the end. 
+eight = JoinedData2.pop('Incident Type_y')
+JoinedData2.insert(8, 'Incident Type', eight)
+nine = JoinedData2.pop('Latitude Public')
+JoinedData2.insert(9, 'Latitude Public', nine)
+ten = JoinedData2.pop('Longitude Public')
+JoinedData2.insert(10, 'Longitude Public', ten)
+eleven = JoinedData2.pop('Within Park')
+JoinedData2.insert(11, 'Within Park', eleven)
+twelve = JoinedData2.pop('Total Staff Involved')
+JoinedData2.insert(12, 'Total Staff Involved', twelve)
+thirteen = JoinedData2.pop('Total Staff Hours')
+JoinedData2.insert(13, 'Total Staff Hours', thirteen)
+JoinedData2.head()
+
+
 #Confirming that Incident Numbers contained in Incidents but not in Animals dataset were still joined into the new dataset. 
 JoinedData2.loc[JoinedData2["Incident Number"].isin(dif2)]
 
+
 JoinedData3 = pd.merge(JoinedData2, Responses2, how="outer", on = ["Incident Number", "Incident Date", "Field Unit", "Protected Heritage Area"])
 JoinedData3
+
 #Confirming that Incident Numbers contained in Responses but not in Animals dataset were still joined into the new dataset. 
 JoinedData3.loc[JoinedData3["Incident Number"].isin(dif3)]
 
 #Renaming our final complete Dataset.
 CompleteData = JoinedData3
+CompleteData
 
-#download CompleteData as .csv file from Google Colab
+CompleteData.drop('Unique Counts', axis = 1, inplace=True)
+CompleteData.drop('Duplicate Counts', axis = 1, inplace=True)
+CompleteData.drop('Duplicate Inc_Num', axis = 1, inplace=True)
+CompleteData.head()
 
-from google.colab import files
-CompleteData.to_csv('CompleteData.csv', encoding = 'utf-8-sig') 
-files.download('CompleteData.csv')
+#Adding "UniqueID" values for the 3 incident ID observations that did not exist in the Animal dataframe and therefore didn't get UniqueID assigned. Checked earlier that there are only 3 rows effected and they are all unique Incident numbers (no duplicates).
+CompleteData['UniqueID'] = CompleteData['UniqueID'].fillna(CompleteData['Incident Number'])
+
+
+#download CompleteData as .csv file from Jupyter Notebook
+Complete_HWC_Data.to_csv("/Users/nerdbear/Downloads/CompleteData.csv")
+
 
