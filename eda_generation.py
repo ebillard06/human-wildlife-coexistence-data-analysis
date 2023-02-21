@@ -15,7 +15,7 @@ import pandas as pd
 from pandas_profiling import ProfileReport 
 
 
-CompleteData = pd.read_csv("/Users/nerdbear/Documents/GitHub/human-wildlife-coexistence-data-analysis/CompleteData.csv", index_col=0)
+Complete_HWC_Data = pd.read_csv("/Users/nerdbear/Downloads/Complete_HWC_Data.csv", index_col=0)
 
 profile = ProfileReport(CompleteData, title="Human Wildlife Coexistence Data - EDA Report")
 
