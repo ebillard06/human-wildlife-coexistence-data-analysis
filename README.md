@@ -24,7 +24,7 @@ The file named "Clean and Join datasets" contains all the code used to clean and
 
 The code in "Clean and Join datasets" includes many comments about how the datasets were modified to combine or account for duplicate occurences of the incident numbers along with my reasons why. At the end of that code, a .csv file is generated called "Complete_HWC_Data.csv" (that .csv can also be found in the files here). The "Clean and Join datasets" file was run using Jupyter Notebook and only the links to the datasets would need to be modified in order to be able to run this code on another machine. 
 
-The "eda_generation" file contains the code used to import the "Complete_HWC_Data.csv" file, any data type modification settings needed, and the command for generating an 'Exploratory Data Analysis' (EDA) Report using the Pandas Profiling package. The generated EDA report in html format can be found in the files and is called "HWC_Data_EDA_Report". 
+The "EDA Report Generation" file contains the code used to import the "Complete_HWC_Data.csv" file, any data type modification settings needed, and the command for generating an 'Exploratory Data Analysis' (EDA) Report using the Pandas Profiling package. The generated EDA report in html format can be found in the files and is called "HWC_Data_EDA_Report". 
 
 The "HWC_Data_Description" file contains the basic code used to pull some basic Data descriptions for the datsets. 
 
