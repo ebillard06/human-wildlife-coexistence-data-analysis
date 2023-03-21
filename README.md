@@ -1,6 +1,6 @@
 # human-wildlife-coexistence-data-analysis
 ## Project Description
-A data analysis project looking at human and wildlife coexistence in Canadian National Parks with the purpose of discovering trends in reported incidents and identifying target areas for promoting health and safety of humans and wildlife and mitigating negative incidents in our National Parks. 
+A data analysis project looking at human and wildlife coexistence in Canadian National Parks with the purpose of discovering trends in reportCancel changesed incidents and identifying target areas for promoting health and safety of humans and wildlife and mitigating negative incidents in our National Parks. 
 ### Our Research Questions:
 1.	What patterns can be found in location and time of year for each of the following variables: human activities, animals involved, cause, and incident type. How do these patterns differ year over year?
 2.	What incidents are the most concerning (i.e. where there is potential risk for humans or animals)?
@@ -27,5 +27,5 @@ The "eda_generation" file contains the code used to import the "Complete_HWC_Dat
 
 The "HWC_Data_Description" file contains the basic code used to pull some basic Data descriptions for the datsets. 
 
-The "Clean and Join datasets" file contains all the code used to in the exploratory analysis and generation of histograms, time series plots, initial analysis and responses to research questions 1 & 2. 
+The "HWC Data - Plotting and Initial Analysis" file contains all the code used to in the exploratory analysis and generation of histograms, time series plots, initial analysis and responses to research questions 1 & 2. 
 
