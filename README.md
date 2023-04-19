@@ -1,6 +1,7 @@
 # human-wildlife-coexistence-data-analysis
+This project was completed for the Capstone Course of the "Data Analytics, Big Data, and Predictive Analytics" certificate through Toronto Metropolitan University (previously named Ryerson University). 
 ## Project Description
-A data analysis project looking at human and wildlife coexistence in Canadian National Parks with the purpose of discovering trends in reportCancel changesed incidents and identifying target areas for promoting health and safety of humans and wildlife and mitigating negative incidents in our National Parks. 
+A data analysis project looking at human and wildlife coexistence in Canadian National Parks with the purpose of discovering trends in reported incidents and identifying target areas for promoting health and safety of humans and wildlife and mitigating negative incidents in our National Parks. 
 ### Our Research Questions:
 1.	What patterns can be found in location and time of year for each of the following variables: human activities, animals involved, cause, and incident type. How do these patterns differ year over year?
 2.	What incidents are the most concerning (i.e. where there is potential risk for humans or animals)?
